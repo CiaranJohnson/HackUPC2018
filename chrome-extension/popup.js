@@ -1,5 +1,6 @@
 var score = document.getElementById("score");
 var userUrl = "";
+var prediction;
 
 var apigClient = apigClientFactory.newClient({
     apiKey: 'UimFGu9MmE8f1kXp2RPaESXJMpJLt0XaUD5FDc7g'
@@ -14,19 +15,20 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     };
 
     var scraped;
-    var prediction;
 
     // Webscrape url and return JSON of scraped data
-    apigClient.rootPost({}, body)
+    apigClient.webscraperPost({}, body)
     .then(function(result){
         console.log(userUrl + " scraped successfully");
+        console.log(result.data["title"]);
+        console.log(result.data["text"]);
         scraped = result.data;
     }).catch( function(result){
         console.log("Failed to scrape " + userUrl);
     });
 
     // Pass JSON object to be preprocessed and calculate fake news score prediction
-    apigClient.METHODNAME({}, scraped) // Need to fill in method name
+    apigClient.modelPost({}, scraped)
     .then(function(result){
         console.log("Fake news score predicted successfully");
         prediction = result.data["prediction"] // Need to access data correctly
@@ -34,6 +36,13 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         console.log("Failed to predict fake news score");
     });
 
-    score.insertAdjacentHTML("beforeend", prediction);
+    core.insertAdjacentHTML("beforeend", prediction);
 
 });
+
+// Shows an appropriate picture of Pinocchio depending on prediction article receives
+if(prediction == 1) {
+    score.insertAdjacentHTML("beforebegin", "<img class='pinocchio' src='/images/pinocchio-fake.png'>");
+} else {
+    score.insertAdjacentHTML("beforebegin", "<img class='pinocchio' src='/images/pinocchio-real.png'>")
+};
