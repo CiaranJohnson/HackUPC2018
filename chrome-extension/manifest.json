@@ -1,7 +1,7 @@
 {
     "name": "Pinocchio",
     "version": "1.0",
-    "description": "Gives a webpage a fake news score between 0 and 10. Icon made by Freepik from www.flaticon.com",
+    "description": "Gives a webpage a fake news score. With 0 meaning completely fake and 10 being absolutely reliable.",
     "manifest_version": 2,
     "permissions": ["storage", "declarativeContent", "activeTab", "webNavigation", "tabs"],
     "browser_action": {
