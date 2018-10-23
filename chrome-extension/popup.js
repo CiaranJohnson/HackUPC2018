@@ -3,7 +3,7 @@ var calculate = document.getElementById("calculate");
 var userUrl = "";
 
 var apigClient = apigClientFactory.newClient({
-    apiKey: 'UimFGu9MmE8f1kXp2RPaESXJMpJLt0XaUD5FDc7g'
+    //apiKey: **INSERT API KEY HERE**
 });
 
 // Get URL of current tab and execute lambda functions
